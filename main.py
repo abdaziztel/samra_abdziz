@@ -73,35 +73,30 @@ def send_product_data_to_telegram(product_name, product_status, image_url, produ
     bot_token = "6958486146:AAFtYb_TaInJtSSFevXDn39BCssCzj4inV4"
     chat_id = "-1002175935286"
     telegram_api_url = f"https://api.telegram.org/bot{bot_token}/sendPhoto"
-    message_text = f"Product Name: {product_name}\nProduct Status: {product_status}"
-    
+        # Update the message text with emojis, user-friendly language, and bold text
     if product_status == "متوفر":
+        message_text = f"✅ **المنتج متاح** ✅: {product_name}"
         reply_markup = {
             "inline_keyboard": [
-                [{"text": "عرض المنتج", "url": product_link}],
-                [{"text": "عرض السلة", "url": "https://www.dzrt.com/ar/checkout/cart"}],
-                [{"text": "تسجيل الدخول", "url": "https://www.dzrt.com/ar/customer/account/login/"}],
-                [{"text": "الانتقال إلى رابط الدفع النهائي", "url": "https://www.dzrt.com/ar/onestepcheckout.html"}]
+                [{"text": "🔍 عرض المنتج", "url": product_link}, {"text": "🛒 عرض السلة", "url": "https://www.dzrt.com/ar/checkout/cart"}],
+                [{"text": "🔐 تسجيل الدخول", "url": "https://www.dzrt.com/ar/customer/account/login/"}, {"text": "💳 الانتقال إلى رابط الدفع النهائي", "url": "https://www.dzrt.com/ar/onestepcheckout.html"}]
             ]
-        }
-        params = {
-            "chat_id": chat_id,
-            "photo": image_url,
-            "caption": message_text,
-            "reply_markup": json.dumps(reply_markup)
         }
     else:
+        message_text = f"❌ **نفذ من المخزون** ❌: {product_name}"
         reply_markup = {
             "inline_keyboard": [
-                [{"text": "تسجيل الدخول", "url": "https://www.dzrt.com/ar/customer/account/login/"}]
+                [{"text": "🔐 تسجيل الدخول", "url": "https://www.dzrt.com/ar/customer/account/login/"}]
             ]
         }
-        params = {
-            "chat_id": chat_id,
-            "photo": image_url,
-            "caption": message_text,
-            "reply_markup": json.dumps(reply_markup)
-        }
+
+    params = {
+        "chat_id": chat_id,
+        "photo": image_url,
+        "caption": message_text,
+        "parse_mode": "Markdown",  # Specify Markdown to enable bold text
+        "reply_markup": json.dumps(reply_markup)
+    }
     
     response = requests.post(telegram_api_url, params=params)
     if response.status_code == 200:
