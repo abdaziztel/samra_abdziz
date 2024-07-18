@@ -75,8 +75,7 @@ def send_product_data_to_telegram(product_name, product_status, image_url, produ
     telegram_api_url = f"https://api.telegram.org/bot{bot_token}/sendPhoto"
     message_text = f"Product Name: {product_name}\nProduct Status: {product_status}"
     
-    # Exclude inline keyboard if the product status is "متوفر" or "سيتم توفيرها في المخزون قريباً"
-    if product_status  in ["متوفر"]:
+    if product_status == "متوفر":
         reply_markup = {
             "inline_keyboard": [
                 [{"text": "عرض المنتج", "url": product_link}],
@@ -92,12 +91,18 @@ def send_product_data_to_telegram(product_name, product_status, image_url, produ
             "reply_markup": json.dumps(reply_markup)
         }
     else:
+        reply_markup = {
+            "inline_keyboard": [
+                [{"text": "تسجيل الدخول", "url": "https://www.dzrt.com/ar/customer/account/login/"}]
+            ]
+        }
         params = {
             "chat_id": chat_id,
             "photo": image_url,
-            "caption": message_text
+            "caption": message_text,
+            "reply_markup": json.dumps(reply_markup)
         }
-
+    
     response = requests.post(telegram_api_url, params=params)
     if response.status_code == 200:
         print(f"Product data sent successfully for {product_name}")
