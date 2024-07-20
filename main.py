@@ -96,7 +96,7 @@ def send_product_data_to_telegram(product_name, product_status, image_url, produ
         image_url = stored_image_url
 
     # Check if image_url is a local file path
-    if not image_url.startswith("http"):
+    if image_url == "notavaliable.jpg":
         with open(image_url, 'rb') as image_file:
             files = {'photo': image_file}
             data = {
