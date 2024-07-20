@@ -7,7 +7,7 @@ import time
 last_sent_status = None
 
 # Path or URL to the stored image for unavailable products
-stored_image_url = "notavaliable.jpg"  # Update this with the actual path or URL
+stored_image_url = "notavailable.jpg"  # Update this with the actual path or URL
 
 # Function to fetch URL content with retries
 def fetch_url_with_retry(url, max_retries=7, delay=1):
@@ -119,7 +119,7 @@ def send_product_data_to_telegram(product_name, product_status, image_url, produ
     if response.status_code == 200:
         print(f"Product data sent successfully for {product_name}")
     else:
-        print(f"Failed to send product data for {product_name}. Status code: {response.status_code}")
+        print(f"Failed to send product data for {product_name}. Status code: {response.status_code}, Response: {response.text}")
 
 # Main function to run the code
 def main():
