@@ -130,7 +130,7 @@ def main():
         if html_content:
             product_name, product_status, image_url = extract_product_details(url)
             if product_name and product_name == "سمرة":
-                if product_status in ["متوفر", "سيتم توفيرها في المخزون قريبًا"]:
+                if product_status in ["متوفر", "سيتم توفيرها في المخزون قريباً"]:
                     if product_status != last_sent_status:
                         send_product_data_to_telegram(product_name, product_status, image_url, url)
                         last_sent_status = product_status
