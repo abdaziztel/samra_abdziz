@@ -7,7 +7,7 @@ import time
 last_sent_status = None
 
 # Path or URL to the stored image for unavailable products
-stored_image_url = "notavailable.jpg"  # Update this with the actual path or URL
+stored_image_url = "notavaliable.jpg"  # Update this with the actual path or URL
 
 # Function to fetch URL content with retries
 def fetch_url_with_retry(url, max_retries=7, delay=1):
